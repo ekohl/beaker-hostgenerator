@@ -67,10 +67,6 @@ Will generate
 ---
 HOSTS:
   centos9-64-1:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     hypervisor: vmpooler
     platform: el-9-x86_64
     template: centos-9-x86_64
@@ -80,10 +76,6 @@ HOSTS:
     - database
     - dashboard
   centos9-64-2:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     hypervisor: vmpooler
     platform: el-9-x86_64
     template: centos-9-x86_64
@@ -107,10 +99,6 @@ Will generate
 ---
 HOSTS:
   centos9-64-1:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     hypervisor: vmpooler
     platform: el-9-x86_64
     template: centos-9-x86_64
@@ -141,20 +129,12 @@ Will generate
 ---
 HOSTS:
   static-master:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     platform: el-9-x86_64
     hypervisor: none
     roles:
     - agent
     - master
   redhat7-64-1:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     hypervisor: vmpooler
     platform: el-7-x86_64
     template: redhat-7-x86_64
@@ -179,10 +159,6 @@ Will generate
 ---
 HOSTS:
   centos9-64-1:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     platform: el-9-x86_64
     hypervisor: vmpooler
     disks:
@@ -191,10 +167,6 @@ HOSTS:
     - agent
     - master
   redhat7-64-1:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     hypervisor: vmpooler
     platform: el-7-x86_64
     template: redhat-7-x86_64
@@ -221,10 +193,6 @@ Will generate
 ---
 HOSTS:
   redhat7-64-1:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     hypervisor: vmpooler
     platform: el-7-x86_64
     template: redhat-7-x86_64
@@ -257,10 +225,6 @@ Will generate
 ---
 HOSTS:
   redhat7-64-1:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     hypervisor: vmpooler
     platform: el-7-x86_64
     template: redhat-7-x86_64
@@ -295,10 +259,6 @@ Will generate
 ---
 HOSTS:
   centos9-64-1:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     platform: el-9-x86_64
     hypervisor: custom
     roles:
@@ -342,10 +302,6 @@ And will generate
 ---
 HOSTS:
   centos9-64-1:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     hypervisor: vmpooler
     platform: el-9-x86_64
     template: centos-9-x86_64
@@ -355,10 +311,6 @@ HOSTS:
     - dashboard
     - database
   aix53-POWER-1:
-    pe_dir:
-    pe_ver:
-    pe_upgrade_dir:
-    pe_upgrade_ver:
     platform: aix-5.3-power
     hypervisor: aix
     vmhostname: pe-aix-53-acceptance.delivery.puppetlabs.net
@@ -387,15 +339,11 @@ follows:
 
 ```yaml
 ---
-arguments_string: "--pe_dir /opt/hello centos9-64mdc"
+arguments_string: "centos9-64mdc"
 environment_variables: {}
 expected_hash:
   HOSTS:
     centos9-64-1:
-      pe_dir: "/opt/hello"
-      pe_ver:
-      pe_upgrade_dir:
-      pe_upgrade_ver:
       hypervisor: vmpooler
       platform: el-9-x86_64
       template: centos-9-x86_64
@@ -404,10 +352,7 @@ expected_hash:
       - master
       - database
       - dashboard
-  CONFIG:
-    nfs_server: none
-    consoleport: 443
-    pooling_api: http://vmpooler.delivery.puppetlabs.net/
+  CONFIG: {}
 expected_exception:
 ```
 

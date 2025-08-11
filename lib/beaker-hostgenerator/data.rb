@@ -1,7 +1,7 @@
 module BeakerHostGenerator
   # Contains all the platform information that ends up in the generated hosts
   # configuration. This includes the various OS-specific platform
-  # configuration, and PE-specific installation & upgrade configuration.
+  # configuration.
   #
   # Any data used by any hypervisor or any other abstraction should be defined
   # in this module, likely in the `osinfo` hash. The hypervisor implementation
@@ -14,60 +14,10 @@ module BeakerHostGenerator
   module Data
     module_function
 
-    MAIN_PE_VERSION = '2025.0'
-    PE_TARBALL_SERVER = 'https://artifactory.delivery.puppetlabs.net/artifactory/generic_enterprise__local'
-
-    def pe_version
-      ENV.fetch('pe_version', nil)
-    end
-
-    def pe_upgrade_version
-      ENV.fetch('pe_upgrade_version', nil)
-    end
-
-    def pe_dir(version)
-      return if version.nil? || version.empty?
-
-      base_regex = '(\A\d+\.\d+)\.\d+'
-      source = case version
-               when /#{base_regex}\Z/
-                 "#{PE_TARBALL_SERVER}/archives/releases/#{version}/"
-               when /#{base_regex}-rc\d+\Z/
-                 "#{PE_TARBALL_SERVER}/archives/internal/%s/"
-               when /#{base_regex}-.*(PEZ|pez)_.*/
-                 "#{PE_TARBALL_SERVER}/%s/feature/ci-ready"
-               when /#{base_regex}-.*/
-                 "#{PE_TARBALL_SERVER}/%s/ci-ready"
-               else
-                 ''
-               end
-
-      pe_family = ::Regexp.last_match(1)
-      gem_version = Gem::Version.new(pe_family)
-      pe_branch = if gem_version < Gem::Version.new("#{MAIN_PE_VERSION}") || version =~ /#{base_regex}-rc\d+\Z/
-                    pe_family
-                  else
-                    'main'
-                  end
-
-      format(source, "#{pe_branch}" || '')
-    end
-
-    PE_USE_WIN32 = ENV.fetch('pe_use_win32', nil)
-
     BASE_CONFIG = {
       'HOSTS' => {},
       'CONFIG' => {},
     }
-
-    def base_host_config(options)
-      {
-        'pe_dir' => options[:pe_dir] || pe_dir(pe_version),
-        'pe_ver' => options[:pe_ver] || pe_version,
-        'pe_upgrade_dir' => options[:pe_upgrade_dir] || pe_dir(pe_upgrade_version),
-        'pe_upgrade_ver' => options[:pe_upgrade_ver] || pe_upgrade_version,
-      }.reject { |_key, value| value.nil? }
-    end
 
     # This is where all the information for all platforms lives, irrespective
     # of the hypervisor(s).

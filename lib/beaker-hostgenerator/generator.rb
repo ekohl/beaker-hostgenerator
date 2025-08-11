@@ -45,7 +45,7 @@ module BeakerHostGenerator
         node_info['ostype'] = ostype
         node_info['nodeid'] = nodeid[ostype]
 
-        host_config = base_host_config(options)
+        host_config = {}
 
         # Delegate to the hypervisor
         hypervisor = BeakerHostGenerator::Hypervisor.create(node_info, options)
@@ -58,11 +58,6 @@ module BeakerHostGenerator
         host_name = arbitrary_settings.delete('hostname') if
           arbitrary_settings.has_key?('hostname')
         host_config.merge!(arbitrary_settings)
-
-        if PE_USE_WIN32 && ostype =~ /windows/ && node_info['bits'] == '64'
-          host_config['ruby_arch'] = 'x86'
-          host_config['install_32'] = true
-        end
 
         generate_host_roles!(host_config, node_info, options)
 

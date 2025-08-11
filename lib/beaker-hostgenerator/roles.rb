@@ -17,7 +17,6 @@ module BeakerHostGenerator
 
     ROLE_CONFIG = {
       'compile_master' => CM_CONFIG,
-      'pe_compiler' => CM_CONFIG,
     }
 
     module_function

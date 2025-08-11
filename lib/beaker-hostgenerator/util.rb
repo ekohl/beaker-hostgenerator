@@ -7,10 +7,6 @@ module BeakerHostGenerator
   module Utils
     module_function
 
-    def pe_dir(version, _family = nil)
-      BeakerHostGenerator::Data.pe_dir(version)
-    end
-
     def dump_hosts(hosts, path)
       vmpooler_hypervisor = BeakerHostGenerator::Hypervisor::Vmpooler.new
       config = {}
